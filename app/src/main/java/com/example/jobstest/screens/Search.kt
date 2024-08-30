@@ -72,6 +72,7 @@ class Search : Fragment() {
             emptyList(),
             onVacancyClick = { vacancyId ->
                 // Реализуем логику перехода на страницу вакансии
+
             },
             // клик по кнопке избранное
             onFavoriteClick = { vacancy ->

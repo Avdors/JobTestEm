@@ -1,14 +1,419 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.CardVacancy">
+    tools:context=".screens.CardVacancy"
+    android:background="@drawable/first_page_background">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dp16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dp16" />
+
+    <ImageView
+        android:id="@+id/card_back_arrow"
+        style="@style/RegularText.14size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp6"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/backarrow"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/card_eye"
+        style="@style/RegularText.14size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/eye"
+        app:layout_constraintEnd_toStartOf="@+id/card_share"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/card_share"
+        style="@style/RegularText.14size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/share"
+        app:layout_constraintEnd_toStartOf="@+id/search_like_bttn"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/search_like_bttn"
+        style="@style/RegularText.14size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/heart_icon"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/card_vacancy_title"
+        style="@style/MediumText.20size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
-</FrameLayout>
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginEnd="@dimen/dp92"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_back_arrow"
+        tools:text="Пример титл" />
+
+    <TextView
+        android:id="@+id/card_vacancy_salary"
+        style="@style/RegularText.16size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp92"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/card_vacancy_title"
+        tools:text="100000000 $" />
+
+
+
+
+    <TextView
+        android:id="@+id/card_vacancy_experience"
+        style="@style/RegularText.14size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp92"
+        android:drawablePadding="@dimen/dp8"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_vacancy_salary"
+        tools:text="От года до трех" />
+
+    <TextView
+        android:id="@+id/card_vacancy_published_date"
+        style="@style/RegularText.14size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp92"
+
+        android:drawablePadding="@dimen/dp8"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/card_vacancy_experience"
+        tools:text="Полная занятость, полный день"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:id="@+id/card_linear_block"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        app:layout_constraintTop_toBottomOf="@+id/card_vacancy_published_date"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+
+
+        android:orientation="horizontal"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/dp8"
+            android:elevation="@dimen/dp4"
+            android:layout_marginEnd="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp8"
+                android:gravity="center_vertical"
+                android:background="@color/dark_green"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/eye_first_line"
+                        style="@style/RegularText.14size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="147 человек уже откликнулись"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/icon_eye"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/profile_small"
+                    android:background="@drawable/circ_background"
+                    android:layout_gravity="top"
+                    android:padding="3dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/dp8"
+            android:elevation="@dimen/dp4"
+            android:layout_marginStart="3dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp8"
+                android:gravity="center_vertical"
+                android:background="@color/dark_green"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:id="@+id/second_line"
+                        style="@style/RegularText.14size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 человека сейчас смотрят"
+                        android:textColor="@android:color/white"
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/eys_small"
+                    android:background="@drawable/circ_background"
+                    android:layout_gravity="top"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_map"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:cardCornerRadius="@dimen/dp8"
+        android:elevation="@dimen/dp4"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="@dimen/dp16"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_linear_block"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:background="@color/grey3"
+            >
+            <TextView
+                android:id="@+id/card_company"
+                style="@style/RegularText.14size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp24"
+
+                android:layout_marginEnd="@dimen/dp92"
+                app:drawableEndCompat="@drawable/done_icon"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/card_linear_block"
+                tools:text="Лучшая компания  " />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginEnd="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp16"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/card_company"
+                android:src="@drawable/map"/>
+
+            <TextView
+                android:id="@+id/card_adress"
+                style="@style/RegularText.14size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp24"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp92"
+                app:drawableEndCompat="@drawable/done_icon"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/card_linear_block"
+                tools:text="г.Новосибирск, улица Доватора, 7" />
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/card_description"
+        style="@style/RegularText.14size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/dp10"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_map"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        tools:text="Информация о компани много строк разного текста о том о сем информация разная." />
+
+    <TextView
+        android:id="@+id/card_task"
+        style="@style/MediumText.20size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginEnd="@dimen/dp92"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_description"
+        tools:text="Ваши задачи" />
+
+    <TextView
+        android:id="@+id/card_task_info"
+        style="@style/RegularText.14size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/dp8"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_task"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        tools:text="-Проектировать пользовательский опыт" />
+
+    <TextView
+        android:id="@+id/card_question"
+        style="@style/MediumText.16size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp92"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_task_info"
+        tools:text="Задайте вопрос работодателю" />
+    <TextView
+        android:id="@+id/card_question_info"
+        style="@style/RegularText.16size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp92"
+        android:textColor="@color/grey3"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_question"
+        tools:text="Он получит его с откликом на вакансию" />
+
+    <LinearLayout
+        android:id="@+id/card_list_question"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/card_question_info"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline">
+
+        <Button
+            android:id="@+id/bt_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:backgroundTint="@color/grey2"
+            app:cornerRadius="@dimen/dp24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Где располагается место работы?"
+            style="@style/RegularText.14size"
+            />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_respons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp24"
+        android:layout_marginEnd="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp16"
+        android:backgroundTint="@color/green"
+        app:cornerRadius="@dimen/dp8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/respons"
+        style="@style/RegularText.14size"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
