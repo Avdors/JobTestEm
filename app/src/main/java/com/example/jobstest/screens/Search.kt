@@ -30,6 +30,7 @@ class Search : Fragment() {
     private lateinit var offerAdapter: OfferAdapter
     private lateinit var vacancyAdapter: VacancyAdapter
     private lateinit var quantityVacancyTextView: TextView
+    private lateinit var accordanceWithTextView: TextView
     private var isFullListDisplayed = false
 
     override fun onCreateView(
@@ -44,6 +45,9 @@ class Search : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         quantityVacancyTextView = view.findViewById(R.id.quantity_vacancy)
+        accordanceWithTextView = view.findViewById(R.id.tw_accordance_with)
+
+
 
         // Инициализация RecyclerView
         val offerRecyclerView = view.findViewById<RecyclerView>(R.id.search_recycler_offer)
@@ -83,6 +87,8 @@ class Search : Fragment() {
                 // Скрываем верхний список предложений
                 offerRecyclerView.visibility = View.GONE
 
+                quantityVacancyTextView.visibility = View.VISIBLE
+                accordanceWithTextView.visibility = View.VISIBLE
 
                 // Обновляем текст с количеством вакансий
 //                val totalVacancyCount = jobsViewModel.vacancies.value.size
@@ -104,17 +110,18 @@ class Search : Fragment() {
             jobsViewModel.vacancies.collect { vacancies ->
                 val totalvacancy = vacancies.size
                 Log.d("VacancyAdapter", "totalvacancy: ${totalvacancy}")
+                // Обновляем текст с количеством вакансий
+                val vacancy = wordDeclension.getVacancyCountString(totalvacancy.toInt())
+                Log.d("VacancyAdapter", "vacancy in search: ${vacancy}")
+                quantityVacancyTextView.text = "$vacancy"
                 // Изначально показываем только первые 3 вакансии и кнопку "Еще вакансий"
                 if (vacancies.size > 3 && !isFullListDisplayed) {
                     vacancyAdapter.updateVacancies(vacancies.take(3), false, totalvacancy)
                 } else {
                     vacancyAdapter.updateVacancies(vacancies, true, totalvacancy)
 
-                    // Обновляем текст с количеством вакансий, если список уже полон
-                    if (isFullListDisplayed) {
-                        val vacancy = wordDeclension.getVacancyCountString(totalvacancy.toInt())
-                        quantityVacancyTextView.text = "$vacancy"
-                    }
+
+
                 }
             }
         }

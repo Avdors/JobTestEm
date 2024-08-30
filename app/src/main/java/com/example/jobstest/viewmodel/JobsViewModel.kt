@@ -1,6 +1,7 @@
 package com.example.jobstest.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Offer
@@ -16,17 +17,31 @@ class JobsViewModel(
     private val dbRepository: DbRepository
 ) : ViewModel() {
 
+
+
     private val _offers = MutableStateFlow<List<Offer>>(emptyList())
     val offers: StateFlow<List<Offer>> = _offers
 
     private val _vacancies = MutableStateFlow<List<Vacancy>>(emptyList())
     val vacancies: StateFlow<List<Vacancy>> = _vacancies
 
+    private val _favoriteVacancies = MutableStateFlow<List<Vacancy>>(emptyList())
+    val favoriteVacancies: StateFlow<List<Vacancy>> = _favoriteVacancies
+
     init {
       //  fetchOffers()
       //  fetchVacancies()
         viewModelScope.launch {
             fetchData()
+            fetchFavoriteVacancies()
+        }
+    }
+
+    private fun fetchFavoriteVacancies() {
+        viewModelScope.launch {
+            dbRepository.getItemList().collect { favorites ->
+                _favoriteVacancies.value = favorites
+            }
         }
     }
 
@@ -69,7 +84,8 @@ class JobsViewModel(
             if (vacancy.isFavorite) {
                 dbRepository.delete(vacancy)
             } else {
-                dbRepository.upsertItem(vacancy)
+                val updatedVacancy = vacancy.copy(isFavorite = true)
+                dbRepository.upsertItem(updatedVacancy)
             }
         }
     }
