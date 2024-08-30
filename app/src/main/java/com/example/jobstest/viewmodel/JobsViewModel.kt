@@ -1,7 +1,5 @@
 package com.example.jobstest.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Offer
@@ -45,19 +43,19 @@ class JobsViewModel(
         }
     }
 
-    private fun fetchOffers() {
-        viewModelScope.launch {
-            val offersList = apiRepository.getOffers()
-            _offers.value = offersList
-        }
-    }
-
-    private fun fetchVacancies() {
-        viewModelScope.launch {
-            val vacanciesList = apiRepository.getVacancies()
-            _vacancies.value = vacanciesList
-        }
-    }
+//    private fun fetchOffers() {
+//        viewModelScope.launch {
+//            val offersList = apiRepository.getOffers()
+//            _offers.value = offersList
+//        }
+//    }
+//
+//    private fun fetchVacancies() {
+//        viewModelScope.launch {
+//            val vacanciesList = apiRepository.getVacancies()
+//            _vacancies.value = vacanciesList
+//        }
+//    }
 
 
     suspend fun fetchData() {
@@ -70,9 +68,9 @@ class JobsViewModel(
 
     }
 
-    fun updateVacancies(newVacancies: List<Vacancy>) {
-        _vacancies.value = newVacancies
-    }
+//    fun updateVacancies(newVacancies: List<Vacancy>) {
+//        _vacancies.value = newVacancies
+//    }
 
     fun toggleFavorite(vacancy: Vacancy) {
         val updatedVacancies = _vacancies.value.map {

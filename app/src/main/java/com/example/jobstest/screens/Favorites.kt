@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstest.R
 import com.example.jobstest.adapters.FavoritesAdapter
+import com.example.jobstest.utils.SpacesItemDecoration
 import com.example.jobstest.utils.WordDeclension
 import com.example.jobstest.viewmodel.JobsViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +37,10 @@ class Favorites : Fragment() {
 
         val vacancyRecyclerView = view.findViewById<RecyclerView>(R.id.search_recycler_vacancy)
         vacancyRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        // расстояние между карточками через ItemDecoration
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.dp8)
+        vacancyRecyclerView.addItemDecoration(SpacesItemDecoration(spacingInPixels))
 
         favoritesAdapter = FavoritesAdapter(emptyList()) { vacancy ->
             jobsViewModel.toggleFavorite(vacancy)

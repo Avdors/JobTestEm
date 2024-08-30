@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
-    tools:context=".screens.Favorites">
+    tools:context=".screens.Favorites"
+    android:fitsSystemWindows="true">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -49,12 +50,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_vacancy"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="@dimen/dp16"
         app:layout_constraintTop_toBottomOf="@+id/quantity_vacancy"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-        tools:listitem="@layout/vacancy_item"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/vacancy_item"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
