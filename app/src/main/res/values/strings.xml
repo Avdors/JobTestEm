@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">JobsTest</string>
+
+    <string name="search">Поиск</string>
+    <string name="favorites">Избранное</string>
+    <string name="responses">Отклики</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
+
+    <string name="login_to">Вход в личный кабинет</string>
+    <string name="search_job">Поиск работы</string>
+    <string name="continue_">Продолжить</string>
+    <string name="login_with_password">Войти с паролем</string>
+    <string name="search_for_employees">Поиск сотрудников</string>
+    <string name="posting_vacancies">Размещение вакансий и доступ к базе резюме</string>
+    <string name="looking_for_employees">Я ищу сотрудников</string>
+    <string name="email">"Электронная почта"</string>
+    <string name="incorrect_email_address">"Вы ввели неверный e-mail"</string>
+
+    <string name="email_address_placeholder">"*** ваш e-mail ***"</string>
+    <string name="send_code_to">"Отправили код на "</string>
+    <string name="enter_code">"Напишите его, чтобы подтвердить,что это вы, а не кто-то другой входит в личный кабинет"</string>
+    <string name="confirm">"Подтвердить"</string>
+
+    <string name="search_hint">"Должность, ключевые слова"</string>
+    <string name="search_vacancy_for_you">"Вакансии для вас"</string>
+    <string name="search_vacancy_top">"Поднять"</string>
+    <string name="respons">Откликнуться</string>
+    <string name="more">Еще</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

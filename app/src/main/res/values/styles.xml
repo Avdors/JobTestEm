@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:paddingBottom">0dp</item> <!-- Минимальные отступы снизу -->
+        <item name="android:paddingTop">0dp</item>
+    </style>
+
+
+    <style name="RegularText">
+        <item name="android:fontFamily">@font/sf_pro_regular</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="SemiboldText">
+        <item name="android:fontFamily">@font/sf_pro_semibold</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="MediumText">
+        <item name="android:fontFamily">@font/sf_pro_medium</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="RegularText.12size">
+        <item name="android:textSize">@dimen/sp12</item>
+    </style>
+
+    <style name="RegularText.14size">
+        <item name="android:textSize">@dimen/sp14</item>
+    </style>
+    <style name="RegularText.16size">
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
+
+    <style name="MediumText.24size">
+        <item name="android:textSize">@dimen/sp24</item>
+    </style>
+
+    <style name="MediumText.16size">
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
+    <style name="MediumText.20size">
+        <item name="android:textSize">@dimen/sp20</item>
+    </style>
+    <style name="SemiboldText.20size">
+        <item name="android:textSize">@dimen/sp20</item>
+    </style>
+
+    <style name="bottom_navigation_view" parent="RegularText.12size">
+        <item name="buttonStyle" type="style">@style/bottom_navigation_view</item>
+        <item name="itemTextColor">@color/color_tab</item>
+        <item name="itemIconTint">@color/color_tab</item>
+        <item name="fontFamily">@font/sf_pro_regular</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>
