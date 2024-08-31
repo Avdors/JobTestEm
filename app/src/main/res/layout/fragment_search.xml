@@ -9,14 +9,14 @@
     tools:context=".screens.Search">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/searchLeftGuideline"
+        android:id="@+id/leftGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="@dimen/dp16" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/searchRightGuideline"
+        android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,8 +29,8 @@
         android:layout_marginTop="@dimen/dp16"
         android:layout_marginEnd="@dimen/dp48"
         android:background="@drawable/search_background"
-        app:layout_constraintEnd_toStartOf="@id/searchRightGuideline"
-        app:layout_constraintStart_toStartOf="@id/searchLeftGuideline"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
@@ -53,7 +53,7 @@
             android:textAllCaps="false"
             android:textColor="?attr/colorOnPrimary"
             android:textColorHint="@color/grey3"
-            app:layout_constraintEnd_toStartOf="@id/searchRightGuideline"
+            app:layout_constraintEnd_toStartOf="@id/rightGuideline"
             tools:ignore="RtlSymmetry" />
 
         <ImageView
@@ -65,7 +65,7 @@
             android:layout_marginEnd="@dimen/dp16"
             android:background="@drawable/close_icon"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/searchLeftGuideline"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
     </FrameLayout>
@@ -77,31 +77,29 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp24"
         app:layout_constraintBottom_toTopOf="@+id/linear_recycler_vacancy"
-        app:layout_constraintStart_toStartOf="@id/searchLeftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/search_page_frame1"
-        tools:text="" />
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/search_filter_placeholder"
+        tools:text="ПримерТекста"
+        android:text="ПримерТекста"
+        android:visibility="invisible"/>
 
     <TextView
         style="@style/RegularText.14size"
+        android:id="@+id/tw_accordance_with"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp24"
+        android:layout_marginEnd="@dimen/dp6"
         android:textColor="@color/blue"
+        app:drawableEndCompat="@drawable/additional_filter"
         app:layout_constraintBottom_toTopOf="@+id/linear_recycler_vacancy"
-        app:layout_constraintEnd_toStartOf="@+id/search_sorting_placeholder"
-        app:layout_constraintTop_toBottomOf="@id/search_page_frame1"
-        tools:text="По соответствию " />
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintTop_toBottomOf="@id/search_filter_placeholder"
+        tools:text="По соответствию "
+        android:text="По соответствию "
+        android:visibility="invisible"/>
 
-    <ImageView
-        android:id="@+id/search_sorting_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp16"
-        android:layout_marginBottom="@dimen/dp24"
-        android:src="@drawable/additional_filter"
-        app:layout_constraintBottom_toTopOf="@+id/linear_recycler_vacancy"
-        app:layout_constraintEnd_toStartOf="@id/searchRightGuideline"
-        app:layout_constraintTop_toBottomOf="@id/search_filter_placeholder" />
+
 
     <ImageView
         android:id="@+id/search_filter_placeholder"
@@ -110,7 +108,7 @@
         android:layout_marginTop="@dimen/dp16"
         android:background="@drawable/search_background"
         android:src="@drawable/filter_icon"
-        app:layout_constraintEnd_toStartOf="@id/searchRightGuideline"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -122,14 +120,15 @@
         android:layout_marginTop="@dimen/dp16"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toStartOf="@id/searchRightGuideline"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_page_frame1"
-        tools:listitem="@layout/offer_item" />
+        tools:listitem="@layout/offer_item"
+    />
 
-    <EditText
+    <TextView
         android:id="@+id/search_vacancy_for_you"
-        style="@style/SemiboldText"
+        style="@style/SemiboldText.20size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp24"
@@ -137,7 +136,7 @@
         android:background="@android:color/transparent"
         android:text="@string/search_vacancy_for_you"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@id/searchLeftGuideline"
+        app:layout_constraintStart_toEndOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/search_recycler_offer" />
 
 
@@ -146,8 +145,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@id/searchLeftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/searchRightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toBottomOf="@id/search_vacancy_for_you"
         app:layout_constraintBottom_toBottomOf="parent">
 

@@ -1,13 +1,18 @@
 package com.example.domain.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
+
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 @Entity(tableName = "vacancies")
+
 data class Vacancy(
     @PrimaryKey @ColumnInfo(name = "id")
     val id: String,
@@ -50,8 +55,9 @@ data class Vacancy(
 
     @ColumnInfo(name = "questions")
     val questions: List<String>? = null
-)
+): Parcelable
 
+@Parcelize
 @Serializable
 data class Address(
     @ColumnInfo(name = "town")
@@ -62,8 +68,8 @@ data class Address(
 
     @ColumnInfo(name = "house")
     val house: String
-)
-
+): Parcelable
+@Parcelize
 @Serializable
 data class Experience(
     @ColumnInfo(name = "preview_text")
@@ -71,8 +77,8 @@ data class Experience(
 
     @ColumnInfo(name = "text")
     val text: String
-)
-
+): Parcelable
+@Parcelize
 @Serializable
 data class Salary(
     @ColumnInfo(name = "short")
@@ -80,4 +86,4 @@ data class Salary(
 
     @ColumnInfo(name = "full")
     val full: String
-)
+): Parcelable

@@ -1,13 +1,10 @@
 package com.example.jobstest
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.jobstest.databinding.ActivityMainBinding
+import com.example.jobstest.screens.Favorites
 import com.example.jobstest.screens.Search
 import com.example.jobstest.viewmodel.JobsViewModel
 import kotlinx.coroutines.launch
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding?.bottomNav?.setOnItemSelectedListener {item ->
             when(item.itemId){
                 R.id.searchFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Search()).commit()
-              //  R.id.allList -> supportFragmentManager.beginTransaction().replace(R.id.content, TaskAll()).commit()
+                R.id.favoritesFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Favorites()).commit()
               //  R.id.taskItemBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, TaskForType()).commit()
             }
             return@setOnItemSelectedListener true

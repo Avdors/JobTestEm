@@ -1,6 +1,5 @@
 package com.example.jobstest.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Offer
@@ -16,33 +15,47 @@ class JobsViewModel(
     private val dbRepository: DbRepository
 ) : ViewModel() {
 
+
+
     private val _offers = MutableStateFlow<List<Offer>>(emptyList())
     val offers: StateFlow<List<Offer>> = _offers
 
     private val _vacancies = MutableStateFlow<List<Vacancy>>(emptyList())
     val vacancies: StateFlow<List<Vacancy>> = _vacancies
 
+    private val _favoriteVacancies = MutableStateFlow<List<Vacancy>>(emptyList())
+    val favoriteVacancies: StateFlow<List<Vacancy>> = _favoriteVacancies
+
     init {
       //  fetchOffers()
       //  fetchVacancies()
         viewModelScope.launch {
             fetchData()
+            fetchFavoriteVacancies()
         }
     }
 
-    private fun fetchOffers() {
+    private fun fetchFavoriteVacancies() {
         viewModelScope.launch {
-            val offersList = apiRepository.getOffers()
-            _offers.value = offersList
+            dbRepository.getItemList().collect { favorites ->
+                _favoriteVacancies.value = favorites
+            }
         }
     }
 
-    private fun fetchVacancies() {
-        viewModelScope.launch {
-            val vacanciesList = apiRepository.getVacancies()
-            _vacancies.value = vacanciesList
-        }
-    }
+//    private fun fetchOffers() {
+//        viewModelScope.launch {
+//            val offersList = apiRepository.getOffers()
+//            _offers.value = offersList
+//        }
+//    }
+//
+//    private fun fetchVacancies() {
+//        viewModelScope.launch {
+//            val vacanciesList = apiRepository.getVacancies()
+//            _vacancies.value = vacanciesList
+//        }
+//    }
 
 
     suspend fun fetchData() {
@@ -55,9 +68,9 @@ class JobsViewModel(
 
     }
 
-    fun updateVacancies(newVacancies: List<Vacancy>) {
-        _vacancies.value = newVacancies
-    }
+//    fun updateVacancies(newVacancies: List<Vacancy>) {
+//        _vacancies.value = newVacancies
+//    }
 
     fun toggleFavorite(vacancy: Vacancy) {
         val updatedVacancies = _vacancies.value.map {
@@ -69,7 +82,8 @@ class JobsViewModel(
             if (vacancy.isFavorite) {
                 dbRepository.delete(vacancy)
             } else {
-                dbRepository.upsertItem(vacancy)
+                val updatedVacancy = vacancy.copy(isFavorite = true)
+                dbRepository.upsertItem(updatedVacancy)
             }
         }
     }

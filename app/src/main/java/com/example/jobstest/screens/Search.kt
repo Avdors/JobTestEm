@@ -1,5 +1,6 @@
 package com.example.jobstest.screens
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +33,8 @@ class Search : Fragment() {
     private lateinit var offerAdapter: OfferAdapter
     private lateinit var vacancyAdapter: VacancyAdapter
     private lateinit var quantityVacancyTextView: TextView
+    private lateinit var accordanceWithTextView: TextView
+    private lateinit var searchEditText: EditText
     private var isFullListDisplayed = false
 
     override fun onCreateView(
@@ -44,6 +49,9 @@ class Search : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         quantityVacancyTextView = view.findViewById(R.id.quantity_vacancy)
+        accordanceWithTextView = view.findViewById(R.id.tw_accordance_with)
+        searchEditText = view.findViewById(R.id.search_et)
+
 
         // Инициализация RecyclerView
         val offerRecyclerView = view.findViewById<RecyclerView>(R.id.search_recycler_offer)
@@ -66,8 +74,21 @@ class Search : Fragment() {
         // Создам адаптер для вакансий с логикой обработки кнопки "Еще вакансий"
         vacancyAdapter = VacancyAdapter(
             emptyList(),
-            onVacancyClick = { vacancyId ->
+            onVacancyClick = { vacancy ->
                 // Реализуем логику перехода на страницу вакансии
+                // Здесь vacancy теперь имеет тип Vacancy
+                // Откройте новый фрагмент и передайте vacancy
+                val cardVacancyFragment = CardVacancy()
+                val bundle = Bundle().apply {
+                    putParcelable("vacancy", vacancy)
+                }
+                cardVacancyFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, cardVacancyFragment)
+                    .addToBackStack(null)
+                    .commit()
+
             },
             // клик по кнопке избранное
             onFavoriteClick = { vacancy ->
@@ -83,11 +104,18 @@ class Search : Fragment() {
                 // Скрываем верхний список предложений
                 offerRecyclerView.visibility = View.GONE
 
+                quantityVacancyTextView.visibility = View.VISIBLE
+                accordanceWithTextView.visibility = View.VISIBLE
 
-                // Обновляем текст с количеством вакансий
-//                val totalVacancyCount = jobsViewModel.vacancies.value.size
-//                val vacancy = wordDeclension.getVacancyCountString(totalVacancyCount.toInt())
-//                quantityVacancyTextView.text = "$vacancy"
+                // Изменяем drawable в EditText на стрелку назад
+                searchEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.backarrow, 0, 0, 0)
+
+                // Устанавливаем обработчик нажатия на EditText для возврата списка к первоначальному состоянию
+                searchEditText.setOnClickListener {
+                    resetVacancyList(offerRecyclerView)
+                }
+
+
             }
         )
         vacancyRecyclerView.adapter = vacancyAdapter
@@ -104,19 +132,39 @@ class Search : Fragment() {
             jobsViewModel.vacancies.collect { vacancies ->
                 val totalvacancy = vacancies.size
                 Log.d("VacancyAdapter", "totalvacancy: ${totalvacancy}")
+                // Обновляем текст с количеством вакансий
+                val vacancy = wordDeclension.getVacancyCountString(totalvacancy.toInt())
+                Log.d("VacancyAdapter", "vacancy in search: ${vacancy}")
+                quantityVacancyTextView.text = "$vacancy"
                 // Изначально показываем только первые 3 вакансии и кнопку "Еще вакансий"
                 if (vacancies.size > 3 && !isFullListDisplayed) {
                     vacancyAdapter.updateVacancies(vacancies.take(3), false, totalvacancy)
                 } else {
                     vacancyAdapter.updateVacancies(vacancies, true, totalvacancy)
 
-                    // Обновляем текст с количеством вакансий, если список уже полон
-                    if (isFullListDisplayed) {
-                        val vacancy = wordDeclension.getVacancyCountString(totalvacancy.toInt())
-                        quantityVacancyTextView.text = "$vacancy"
-                    }
+
+
                 }
             }
         }
+    }
+
+    private fun resetVacancyList(offerRecyclerView: RecyclerView?) {
+        isFullListDisplayed = false
+        // Отображаю только первые 3 вакансии
+        vacancyAdapter.updateVacancies(jobsViewModel.vacancies.value.take(3), false, jobsViewModel.vacancies.value.size)
+
+        offerRecyclerView?.visibility = View.VISIBLE
+
+        // Скрываю количество вакансий и текст "Соответствие"
+        quantityVacancyTextView.visibility = View.GONE
+        accordanceWithTextView.visibility = View.GONE
+
+        // Возвращаю иконку поиска в EditText
+        searchEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search_icon, 0, 0, 0)
+
+        // Сворачиваю клавиатуру, если она была открыта
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
     }
 }

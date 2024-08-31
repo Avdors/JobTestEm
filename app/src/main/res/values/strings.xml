@@ -27,6 +27,9 @@
     <string name="search_vacancy_top">"Поднять"</string>
     <string name="respons">Откликнуться</string>
     <string name="more">Еще</string>
+    <string name="your_tasks">Ваши задачи</string>
+    <string name="ask_question">Задайте вопрос работодателю</string>
+    <string name="he_get_it">Он получит его с откликом на вакансию</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
