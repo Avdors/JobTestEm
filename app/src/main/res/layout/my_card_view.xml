@@ -46,7 +46,7 @@
             android:id="@+id/icon"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/eys_small"
+            android:src="@drawable/eys_small_icon"
             android:background="@drawable/circ_background"
             android:layout_gravity="top"
             android:padding="3dp"/>

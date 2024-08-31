@@ -35,7 +35,7 @@ class CardVacancy : Fragment() {
 
         vacancy = arguments?.getParcelable("vacancy", Vacancy::class.java) ?: return
 
-        // Инициализация и установка данных в элементы макета
+
         val titleTextView: TextView = view.findViewById(R.id.card_vacancy_title)
         val salaryTextView: TextView = view.findViewById(R.id.card_vacancy_salary)
         val experienceTextView: TextView = view.findViewById(R.id.card_vacancy_experience)
@@ -47,23 +47,23 @@ class CardVacancy : Fragment() {
         val descriptionTextView: TextView = view.findViewById(R.id.card_description)
         val responsibilitiesTextView: TextView = view.findViewById(R.id.card_task_info)
         val backButton: ImageView = view.findViewById(R.id.card_back_arrow)
-        val likeButton: ImageView = view.findViewById(R.id.search_like_bttn)
-        val responseButton: Button = view.findViewById(R.id.bt_respons)
+        val likeButton: ImageView = view.findViewById(R.id.card_favorit)
+        val responseButton: Button = view.findViewById(R.id.respons_button)
 
         // раздел вопросы
         val cardListQuestionLayout = view.findViewById<LinearLayout>(R.id.card_list_question)
         cardListQuestionLayout.removeAllViews()
-        // Для каждого элемента массива создаем кнопку
+        // Для каждого элемента массива создаю кнопку
         vacancy.questions?.forEach { question ->
             val button = Button(requireContext()).apply {
                 text = question
-                setBackgroundResource(R.drawable.button_back_grey2)
+                setBackgroundResource(R.drawable.back_grey2_corner24)
                 setTextAppearance(R.style.RegularText_14size)
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    // Добавляем отступы для кнопки
+                    // Добавляю отступы для кнопки
                     setMargins(
                         0,
                         resources.getDimensionPixelSize(R.dimen.dp16),
@@ -83,12 +83,12 @@ class CardVacancy : Fragment() {
                     // Обработка нажатия на вопрос
                 }
             }
-            // Добавляем кнопку в LinearLayout
+            // Добавляю кнопку в LinearLayout
             cardListQuestionLayout.addView(button)
         }
 
 
-        // Пример установки данных
+
         titleTextView.text = vacancy.title
         salaryTextView.text = vacancy.salary.full
         experienceTextView.text = "Требуемый опыт: ${vacancy.experience.text}"
@@ -129,7 +129,8 @@ class CardVacancy : Fragment() {
 
         // Откликнутся
         responseButton.setOnClickListener {
-
+            val responseDialog = Response()
+            responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
         }
     }
 

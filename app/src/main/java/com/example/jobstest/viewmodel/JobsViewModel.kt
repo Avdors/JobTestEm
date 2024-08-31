@@ -27,8 +27,7 @@ class JobsViewModel(
     val favoriteVacancies: StateFlow<List<Vacancy>> = _favoriteVacancies
 
     init {
-      //  fetchOffers()
-      //  fetchVacancies()
+
         viewModelScope.launch {
             fetchData()
             fetchFavoriteVacancies()
@@ -43,20 +42,6 @@ class JobsViewModel(
         }
     }
 
-//    private fun fetchOffers() {
-//        viewModelScope.launch {
-//            val offersList = apiRepository.getOffers()
-//            _offers.value = offersList
-//        }
-//    }
-//
-//    private fun fetchVacancies() {
-//        viewModelScope.launch {
-//            val vacanciesList = apiRepository.getVacancies()
-//            _vacancies.value = vacanciesList
-//        }
-//    }
-
 
     suspend fun fetchData() {
         // Асинхронная загрузка данных
@@ -67,10 +52,6 @@ class JobsViewModel(
         _vacancies.value = vacanciesList
 
     }
-
-//    fun updateVacancies(newVacancies: List<Vacancy>) {
-//        _vacancies.value = newVacancies
-//    }
 
     fun toggleFavorite(vacancy: Vacancy) {
         val updatedVacancies = _vacancies.value.map {

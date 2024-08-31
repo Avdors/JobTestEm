@@ -13,25 +13,26 @@ import com.example.jobstest.utils.WordDeclension
 
 class FavoritesAdapter(
     private var vacancies: List<Vacancy>,
-    private val onFavoriteClick: (Vacancy) -> Unit
+    private val onVacancyClick: (Vacancy) -> Unit,
+    private val onFavoriteClick: (Vacancy) -> Unit,
+    private val onApplyClick: (Vacancy) -> Unit // кнопка Откликнутся
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>()  {
     class FavoritesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val titleTextView: TextView = itemView.findViewById(R.id.search_vacancy_title)
+        private val titleTextView: TextView = itemView.findViewById(R.id.item_vacancy_title)
         private val favoriteImageView: ImageView = itemView.findViewById(R.id.search_like_bttn)
-        private val companyTextView: TextView = itemView.findViewById(R.id.search_vacancy_company)
+        private val companyTextView: TextView = itemView.findViewById(R.id.item_vacancy_company)
         private val wordDeclension = WordDeclension()
+        private val peopleTextView: TextView? = itemView.findViewById(R.id.item_peopl_count)
+        private val salaryTextView: TextView? = itemView.findViewById(R.id.item_vacancy_salary)
+        private val townTextView: TextView? = itemView.findViewById(R.id.item_vacancy_adress)
+        private val experienceTextView: TextView? = itemView.findViewById(R.id.item_experience)
+        private val publishedDateTextView: TextView? = itemView.findViewById(R.id.item_date)
+        private val buttonrespons: Button = itemView.findViewById(R.id.respons_button)
 
-        private val peopleTextView: TextView? = itemView.findViewById(R.id.search_tv_count_of_people)
-        //private val titleTextView: TextView? = itemView.findViewById(R.id.search_vacancy_title)
-        private val salaryTextView: TextView? = itemView.findViewById(R.id.search_vacancy_salary)
-        private val townTextView: TextView? = itemView.findViewById(R.id.search_vacancy_town)
-        //private val companyTextView: TextView? = itemView.findViewById(R.id.search_vacancy_company)
-        private val experienceTextView: TextView? = itemView.findViewById(R.id.search_vacancy_experience)
-        private val publishedDateTextView: TextView? = itemView.findViewById(R.id.search_vacancy_published_date)
-        //private val favoriteImageView: ImageView = itemView.findViewById(R.id.search_like_bttn)
-        private val buttonrespons: Button = itemView.findViewById(R.id.bt_respons)
-
-        fun bind(vacancy: Vacancy, onFavoriteClick: (Vacancy) -> Unit) {
+        fun bind(vacancy: Vacancy,
+                 onVacancyClick: (Vacancy) -> Unit,
+                 onFavoriteClick: (Vacancy) -> Unit,
+                 onApplyClick: (Vacancy) -> Unit) {
             if (vacancy.lookingNumber!! > 0) {
                 val human = wordDeclension.getHumanCountString(vacancy.lookingNumber!!.toInt())
                 peopleTextView?.text = "Сейчас просматривают $human"
@@ -40,10 +41,10 @@ class FavoritesAdapter(
                 peopleTextView?.visibility = View.GONE
             }
 
-            //titleTextView?.text = vacancy.title
+
             salaryTextView?.text = vacancy.salary.full
             townTextView?.text = vacancy.address.town
-            //companyTextView?.text = vacancy.company
+
             experienceTextView?.text = vacancy.experience.previewText
             publishedDateTextView?.text = "Опубликовано ${vacancy.publishedDate}"
             buttonrespons.text = itemView.context.getString(R.string.respons)
@@ -53,7 +54,12 @@ class FavoritesAdapter(
                 R.drawable.fill_heart_icon
             )
 
+            // Обработка нажатия на весь элемент
+            itemView.setOnClickListener { onVacancyClick(vacancy) }
+
             favoriteImageView.setOnClickListener { onFavoriteClick(vacancy) }
+
+            buttonrespons.setOnClickListener { onApplyClick(vacancy) }
         }
     }
 
@@ -65,7 +71,7 @@ class FavoritesAdapter(
     override fun getItemCount(): Int = vacancies.size
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
-        holder.bind(vacancies[position], onFavoriteClick)
+        holder.bind(vacancies[position],onVacancyClick, onFavoriteClick, onApplyClick)
     }
 
     fun updateVacancies(newVacancies: List<Vacancy>) {

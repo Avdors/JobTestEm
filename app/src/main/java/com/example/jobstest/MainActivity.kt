@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    // Получаем ViewModel для теста через koin
+
     private val jobsViewModel: JobsViewModel by viewModel()
 
     private var binding: ActivityMainBinding? = null
@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         binding?.bottomNav?.setOnItemSelectedListener {item ->
             when(item.itemId){
-                R.id.searchFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Search()).commit()
-                R.id.favoritesFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Favorites()).commit()
+                R.id.searchBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, Search()).commit()
+                R.id.favoritesBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, Favorites()).commit()
               //  R.id.taskItemBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, TaskForType()).commit()
             }
             return@setOnItemSelectedListener true
