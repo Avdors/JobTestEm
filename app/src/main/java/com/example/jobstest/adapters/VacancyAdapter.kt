@@ -14,7 +14,7 @@ import com.example.jobstest.utils.WordDeclension
 
 class VacancyAdapter(
     private var vacancies: List<Vacancy>,
-    private val onVacancyClick: (String) -> Unit,
+    private val onVacancyClick: (Vacancy) -> Unit,
     private val onFavoriteClick: (Vacancy) -> Unit,
     private val onShowMoreClick: () -> Unit // Кнопка "Еще вакансий"
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -42,7 +42,7 @@ class VacancyAdapter(
         private val buttonrespons: Button = itemView.findViewById(R.id.bt_respons)
         private val wordDeclension = WordDeclension()
 
-        fun bind(vacancy: Vacancy, onVacancyClick: (String) -> Unit, onFavoriteClick: (Vacancy) -> Unit) {
+        fun bind(vacancy: Vacancy, onVacancyClick: (Vacancy) -> Unit, onFavoriteClick: (Vacancy) -> Unit) {
             if (vacancy.lookingNumber!! > 0) {
                 val human = wordDeclension.getHumanCountString(vacancy.lookingNumber!!.toInt())
                 peopleTextView?.text = "Сейчас просматривают $human"
@@ -63,7 +63,7 @@ class VacancyAdapter(
                 if (vacancy.isFavorite) R.drawable.fill_heart_icon else R.drawable.heart_icon
             )
 
-            itemView.setOnClickListener { onVacancyClick(vacancy.id) }
+            itemView.setOnClickListener { onVacancyClick(vacancy) }
             favoriteImageView.setOnClickListener { onFavoriteClick(vacancy) }
         }
     }

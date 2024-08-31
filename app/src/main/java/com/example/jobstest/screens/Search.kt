@@ -70,8 +70,20 @@ class Search : Fragment() {
         // Создам адаптер для вакансий с логикой обработки кнопки "Еще вакансий"
         vacancyAdapter = VacancyAdapter(
             emptyList(),
-            onVacancyClick = { vacancyId ->
+            onVacancyClick = { vacancy ->
                 // Реализуем логику перехода на страницу вакансии
+                // Здесь vacancy теперь имеет тип Vacancy
+                // Откройте новый фрагмент и передайте vacancy
+                val cardVacancyFragment = CardVacancy()
+                val bundle = Bundle().apply {
+                    putParcelable("vacancy", vacancy)
+                }
+                cardVacancyFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, cardVacancyFragment)
+                    .addToBackStack(null)
+                    .commit()
 
             },
             // клик по кнопке избранное
