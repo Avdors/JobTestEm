@@ -16,7 +16,8 @@ class VacancyAdapter(
     private var vacancies: List<Vacancy>,
     private val onVacancyClick: (Vacancy) -> Unit,
     private val onFavoriteClick: (Vacancy) -> Unit,
-    private val onShowMoreClick: () -> Unit // Кнопка "Еще вакансий"
+    private val onShowMoreClick: () -> Unit, // Кнопка "Еще вакансий"
+    private val onApplyClick: (Vacancy) -> Unit // Кнопка "Откликнуться"
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val ITEM_TYPE_VACANCY = 0
@@ -31,18 +32,22 @@ class VacancyAdapter(
 
     // ViewHolder для вакансий
     class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val peopleTextView: TextView? = itemView.findViewById(R.id.search_tv_count_of_people)
-        private val titleTextView: TextView? = itemView.findViewById(R.id.search_vacancy_title)
-        private val salaryTextView: TextView? = itemView.findViewById(R.id.search_vacancy_salary)
-        private val townTextView: TextView? = itemView.findViewById(R.id.search_vacancy_town)
-        private val companyTextView: TextView? = itemView.findViewById(R.id.search_vacancy_company)
-        private val experienceTextView: TextView? = itemView.findViewById(R.id.search_vacancy_experience)
-        private val publishedDateTextView: TextView? = itemView.findViewById(R.id.search_vacancy_published_date)
+        private val peopleTextView: TextView? = itemView.findViewById(R.id.item_peopl_count)
+        private val titleTextView: TextView? = itemView.findViewById(R.id.item_vacancy_title)
+        private val salaryTextView: TextView? = itemView.findViewById(R.id.item_vacancy_salary)
+        private val townTextView: TextView? = itemView.findViewById(R.id.item_vacancy_adress)
+        private val companyTextView: TextView? = itemView.findViewById(R.id.item_vacancy_company)
+        private val experienceTextView: TextView? = itemView.findViewById(R.id.item_experience)
+        private val publishedDateTextView: TextView? = itemView.findViewById(R.id.item_date)
         private val favoriteImageView: ImageView = itemView.findViewById(R.id.search_like_bttn)
-        private val buttonrespons: Button = itemView.findViewById(R.id.bt_respons)
+        private val buttonrespons: Button = itemView.findViewById(R.id.respons_button)
         private val wordDeclension = WordDeclension()
 
-        fun bind(vacancy: Vacancy, onVacancyClick: (Vacancy) -> Unit, onFavoriteClick: (Vacancy) -> Unit) {
+        fun bind(
+            vacancy: Vacancy,
+            onVacancyClick: (Vacancy) -> Unit,
+            onFavoriteClick: (Vacancy) -> Unit,
+            onApplyClick: (Vacancy) -> Unit) {
             if (vacancy.lookingNumber!! > 0) {
                 val human = wordDeclension.getHumanCountString(vacancy.lookingNumber!!.toInt())
                 peopleTextView?.text = "Сейчас просматривают $human"
@@ -57,14 +62,15 @@ class VacancyAdapter(
             companyTextView?.text = vacancy.company
             experienceTextView?.text = vacancy.experience.previewText
             publishedDateTextView?.text = "Опубликовано ${vacancy.publishedDate}"
-            buttonrespons.text = itemView.context.getString(R.string.respons)
+
 
             favoriteImageView.setImageResource(
                 if (vacancy.isFavorite) R.drawable.fill_heart_icon else R.drawable.heart_icon
             )
-
+            // Обработка нажатия на весь элемент
             itemView.setOnClickListener { onVacancyClick(vacancy) }
             favoriteImageView.setOnClickListener { onFavoriteClick(vacancy) }
+            buttonrespons.setOnClickListener { onApplyClick(vacancy) } // Обработка нажатия на кнопку "Откликнуться"
         }
     }
 
@@ -90,7 +96,7 @@ class VacancyAdapter(
         isFullListDisplayed = showFullList
         this.totalVacanciesCount = totalVacanciesCount
         this.vacancies = allVacancies
-        notifyDataSetChanged() // Обновляем адаптер
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -104,7 +110,7 @@ class VacancyAdapter(
     }
 
     override fun getItemCount(): Int {
-        // Возвращаем размер списка + 1, чтобы показать кнопку "Еще вакансий"
+        // Возвращаю размер списка + 1, чтобы показать кнопку "Еще вакансий"
         return if (isFullListDisplayed) vacancies.size else 4
        // return if (vacancies.size >= 3) 4 else vacancies.size
     }
@@ -113,7 +119,7 @@ class VacancyAdapter(
         if (holder.itemViewType == ITEM_TYPE_VACANCY) {
             val vacancy = vacancies[position]
             Log.d("VacancyAdapter", "Binding vacancy at position: $position")
-            (holder as VacancyViewHolder).bind(vacancy, onVacancyClick, onFavoriteClick)
+            (holder as VacancyViewHolder).bind(vacancy, onVacancyClick, onFavoriteClick, onApplyClick)
         } else {
             Log.d("VacancyAdapter", "Binding show more button at position: $position")
 

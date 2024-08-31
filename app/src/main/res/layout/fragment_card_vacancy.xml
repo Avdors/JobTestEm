@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.CardVacancy"
-    android:background="@drawable/first_page_background">
+    android:background="@drawable/back_grey1_corner12">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp16"
         android:layout_marginEnd="@dimen/dp16"
-        android:background="@drawable/eye"
+        android:background="@drawable/eye_icon"
         app:layout_constraintEnd_toStartOf="@+id/card_share"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -54,12 +54,12 @@
         android:layout_marginTop="@dimen/dp16"
         android:layout_marginEnd="@dimen/dp16"
         android:background="@drawable/share"
-        app:layout_constraintEnd_toStartOf="@+id/search_like_bttn"
+        app:layout_constraintEnd_toStartOf="@+id/card_favorit"
         app:layout_constraintTop_toTopOf="parent"
         />
 
     <ImageView
-        android:id="@+id/search_like_bttn"
+        android:id="@+id/card_favorit"
         style="@style/RegularText.14size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dp16"
-        app:layout_constraintTop_toBottomOf="@+id/search_like_bttn"
+        app:layout_constraintTop_toBottomOf="@+id/card_favorit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline">
@@ -184,7 +184,7 @@
                                 style="@style/RegularText.14size"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="147 человек уже откликнулись"
+                                tools:text="147 человек уже откликнулись"
                                 android:textSize="14sp" />
 
 
@@ -194,7 +194,7 @@
                             android:id="@+id/icon_eye"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/profile_small"
+                            android:src="@drawable/profile_small_icon"
                             android:background="@drawable/circ_background"
                             android:layout_gravity="top"
                             android:padding="3dp"
@@ -236,7 +236,7 @@
                                 style="@style/RegularText.14size"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2 человека сейчас смотрят"
+                                tools:text="2 человека сейчас смотрят"
                                 android:textColor="@android:color/white"
                                 />
 
@@ -246,7 +246,7 @@
                             android:id="@+id/icon"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/eys_small"
+                            android:src="@drawable/eys_small_icon"
                             android:background="@drawable/circ_background"
                             android:layout_gravity="top"
                             />
@@ -416,7 +416,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/bt_respons"
+                android:id="@+id/respons_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -425,7 +425,7 @@
                 android:layout_marginEnd="@dimen/dp16"
                 android:layout_marginBottom="@dimen/dp16"
                 android:backgroundTint="@color/green"
-                app:cornerRadius="@dimen/dp8"
+                app:cornerRadius="@dimen/dp24"
                 app:layout_constraintTop_toBottomOf="@+id/card_list_question"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

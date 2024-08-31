@@ -24,7 +24,7 @@
         app:layout_constraintGuide_end="@dimen/dp16" />
 
     <TextView
-        android:id="@+id/search_vacancy_for_you"
+        android:id="@+id/tv_favorites"
         style="@style/SemiboldText.20size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,12 +43,12 @@
         android:layout_marginBottom="@dimen/dp24"
         android:layout_marginTop="@dimen/dp24"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/search_vacancy_for_you"
+        app:layout_constraintTop_toBottomOf="@+id/tv_favorites"
         tools:text="ПримерТекста"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recycler_vacancy"
+        android:id="@+id/favorites_recycler_vacancy"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"

@@ -35,24 +35,42 @@ class Favorites : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vacancyRecyclerView = view.findViewById<RecyclerView>(R.id.search_recycler_vacancy)
+        val vacancyRecyclerView = view.findViewById<RecyclerView>(R.id.favorites_recycler_vacancy)
         vacancyRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // расстояние между карточками через ItemDecoration
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.dp8)
         vacancyRecyclerView.addItemDecoration(SpacesItemDecoration(spacingInPixels))
 
-        favoritesAdapter = FavoritesAdapter(emptyList()) { vacancy ->
-            jobsViewModel.toggleFavorite(vacancy)
-        }
+        favoritesAdapter = FavoritesAdapter(
+            emptyList(),
+            onVacancyClick = { vacancy ->
+                val cardVacancyFragment = CardVacancy()
+                val bundle = Bundle().apply {
+                    putParcelable("vacancy", vacancy)
+                }
+                cardVacancyFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, cardVacancyFragment)
+                    .addToBackStack(null)
+                    .commit()
+            },
+            onFavoriteClick = { vacancy ->
+                jobsViewModel.toggleFavorite(vacancy)
+            },
+            onApplyClick = { vacancy ->
+                val responseDialog = Response()
+                responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
+            })
         vacancyRecyclerView.adapter = favoritesAdapter
 
-        // Подписываемся на обновление списка избранных вакансий
+        // Подписываюсь на обновление списка избранных вакансий
         lifecycleScope.launch {
             jobsViewModel.favoriteVacancies.collect { vacancies ->
                 favoritesAdapter.updateVacancies(vacancies)
 
-                // Обновляем текст с количеством вакансий
+                // Обновляю текст с количеством вакансий
                 val quantityVacancyTextView = view.findViewById<TextView>(R.id.quantity_vacancy)
                 val vacancy = wordDeclension.getVacancyCountString(vacancies.size)
                 quantityVacancyTextView.text = "$vacancy"
