@@ -1,5 +1,6 @@
 package com.example.jobstest.screens
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +34,7 @@ class Search : Fragment() {
     private lateinit var vacancyAdapter: VacancyAdapter
     private lateinit var quantityVacancyTextView: TextView
     private lateinit var accordanceWithTextView: TextView
+    private lateinit var searchEditText: EditText
     private var isFullListDisplayed = false
 
     override fun onCreateView(
@@ -46,7 +50,7 @@ class Search : Fragment() {
 
         quantityVacancyTextView = view.findViewById(R.id.quantity_vacancy)
         accordanceWithTextView = view.findViewById(R.id.tw_accordance_with)
-
+        searchEditText = view.findViewById(R.id.search_et)
 
 
         // Инициализация RecyclerView
@@ -103,10 +107,15 @@ class Search : Fragment() {
                 quantityVacancyTextView.visibility = View.VISIBLE
                 accordanceWithTextView.visibility = View.VISIBLE
 
-                // Обновляем текст с количеством вакансий
-//                val totalVacancyCount = jobsViewModel.vacancies.value.size
-//                val vacancy = wordDeclension.getVacancyCountString(totalVacancyCount.toInt())
-//                quantityVacancyTextView.text = "$vacancy"
+                // Изменяем drawable в EditText на стрелку назад
+                searchEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.backarrow, 0, 0, 0)
+
+                // Устанавливаем обработчик нажатия на EditText для возврата списка к первоначальному состоянию
+                searchEditText.setOnClickListener {
+                    resetVacancyList(offerRecyclerView)
+                }
+
+
             }
         )
         vacancyRecyclerView.adapter = vacancyAdapter
@@ -138,5 +147,24 @@ class Search : Fragment() {
                 }
             }
         }
+    }
+
+    private fun resetVacancyList(offerRecyclerView: RecyclerView?) {
+        isFullListDisplayed = false
+        // Отображаю только первые 3 вакансии
+        vacancyAdapter.updateVacancies(jobsViewModel.vacancies.value.take(3), false, jobsViewModel.vacancies.value.size)
+
+        offerRecyclerView?.visibility = View.VISIBLE
+
+        // Скрываю количество вакансий и текст "Соответствие"
+        quantityVacancyTextView.visibility = View.GONE
+        accordanceWithTextView.visibility = View.GONE
+
+        // Возвращаю иконку поиска в EditText
+        searchEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search_icon, 0, 0, 0)
+
+        // Сворачиваю клавиатуру, если она была открыта
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
     }
 }
