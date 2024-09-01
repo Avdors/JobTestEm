@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstest.R
@@ -72,18 +73,14 @@ class Search : Fragment() {
         vacancyAdapter = VacancyAdapter(
             emptyList(),
             onVacancyClick = { vacancy ->
-                //  логика перехода на страницу вакансии
-                val cardVacancyFragment = CardVacancy()
+                // Переход к CardVacancyFragment
                 val bundle = Bundle().apply {
                     putParcelable("vacancy", vacancy)
                 }
-                cardVacancyFragment.arguments = bundle
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, cardVacancyFragment)
-                    .addToBackStack(null)
-                    .commit()
-
+                findNavController().navigate(
+                    R.id.action_searchFragment_to_cardVacancyFragment,
+                    bundle
+                )
             },
             // клик по кнопке избранное
             onFavoriteClick = { vacancy ->
@@ -115,7 +112,7 @@ class Search : Fragment() {
 
             },
             onApplyClick = { vacancy ->
-                val responseDialog = Response()
+                val responseDialog = ResponseDialog()
                 responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
             }
         )

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFirstFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.jobstest.screens.Search"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_cardVacancyFragment"
+            app:destination="@id/cardVacancyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.jobstest.screens.Favorites"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_cardVacancyFragment"
+            app:destination="@id/cardVacancyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cardVacancyFragment"
+        android:name="com.example.jobstest.screens.CardVacancy"
+        android:label="Card Vacancy"
+        tools:layout="@layout/fragment_card_vacancy" />
+
+    <fragment
+        android:id="@+id/loginFirstFragment"
+        android:name="com.example.jobstest.screens.LoginFirst"
+        android:label="Login First"
+        tools:layout="@layout/fragment_login_first">
+
+        <action
+            android:id="@+id/action_loginFirstFragment_to_loginSecondFragment"
+            app:destination="@id/loginSecond"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginSecond"
+        android:name="com.example.jobstest.screens.LoginSecond"
+        android:label="fragment_login_second"
+        tools:layout="@layout/fragment_login_second">
+
+        <action
+            android:id="@+id/action_loginSecondFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/responseFragment"
+        android:name="com.example.jobstest.screens.ResponseDialog"
+        android:label="Response"
+        tools:layout="@layout/fragment_response_dialog" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.jobstest.screens.Messages"
+        android:label="fragment_messages"
+        tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.jobstest.screens.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/responsesFragment"
+        android:name="com.example.jobstest.screens.Responses"
+        android:label="fragment_responses"
+        tools:layout="@layout/fragment_responses" />
+</navigation>

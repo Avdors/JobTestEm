@@ -2,7 +2,10 @@ package com.example.jobstest
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.forEach
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.jobstest.databinding.ActivityMainBinding
 import com.example.jobstest.screens.Favorites
 import com.example.jobstest.screens.Search
@@ -28,16 +31,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        binding?.bottomNav?.setOnItemSelectedListener {item ->
-            when(item.itemId){
-                R.id.searchBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, Search()).commit()
-                R.id.favoritesBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, Favorites()).commit()
-              //  R.id.taskItemBottomNav -> supportFragmentManager.beginTransaction().replace(R.id.content, TaskForType()).commit()
-            }
-            return@setOnItemSelectedListener true
-        }
 
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        binding?.bottomNav?.setupWithNavController(navController)
+
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when (destination.id) {
+//                R.id.loginFirstFragment, R.id.loginSecond -> {
+//                    binding?.bottomNav?.menu?.forEach { it.isEnabled = false }
+//                }
+//                else -> {
+//                    binding?.bottomNav?.menu?.forEach { it.isEnabled = true }
+//                }
+//            }
+//        }
     }
-
 }

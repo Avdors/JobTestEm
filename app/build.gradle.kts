@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.mock)
     implementation(libs.logback.classic)
     implementation(libs.ktor.client.content.negotiation)
     //json
@@ -76,5 +77,20 @@ dependencies {
 
     //coroutines
     implementation(libs.kotlinx.coroutines.android)
+
+    //test-junit
+    implementation(libs.kotlin.test.junit)
+
+    //fragment-ktx
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment.ktx.v181)
+
+    //navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.compose)
+
+
+
 
 }

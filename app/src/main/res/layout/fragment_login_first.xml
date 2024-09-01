@@ -136,6 +136,8 @@
                 android:backgroundTint="@color/blue"
                 android:text="@string/continue_str"
                 app:cornerRadius="@dimen/dp8"
+                android:enabled="false"
+
                 />
 
             <Button

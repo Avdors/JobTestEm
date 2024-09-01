@@ -11,19 +11,20 @@
 
 
 
-    <FrameLayout
-        android:id="@+id/content"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom">
 
-        >
-        <!-- Здесь оставил временно layout_marginBottom="-25dp", так как меню слишком высокое, разберусь позже -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_gravity="bottom"
@@ -37,8 +38,6 @@
             app:itemIconSize="20dp"
             android:fitsSystemWindows="false"
             style="@style/CustomBottomNavigationView"
-
-
             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

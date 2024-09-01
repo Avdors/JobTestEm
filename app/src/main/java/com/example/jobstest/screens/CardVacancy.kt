@@ -129,7 +129,7 @@ class CardVacancy : Fragment() {
 
         // Откликнутся
         responseButton.setOnClickListener {
-            val responseDialog = Response()
+            val responseDialog = ResponseDialog()
             responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
         }
     }

@@ -1,6 +1,6 @@
 [versions]
 agp = "8.4.2"
-kotlin = "1.9.0"
+kotlin = "1.9.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -16,8 +16,8 @@ kotlinSerialization = "1.9.23"
 kotlinxSerializationJson = "1.6.0"
 ktorClientCore = "2.3.8"
 logbackClassic = "1.2.3"
-ktorClientLogging = "2.3.7"
-ktorClientSerialization = "1.6.3"
+ktorClientLogging = "2.3.8"
+ktorClientSerialization = "2.3.8"
 ktorClientAndroid = "2.3.7"
 room-runtime = "2.6.1"
 kotlinxCoroutinesAndroid = "1.7.3"
@@ -25,9 +25,22 @@ lifecycle = "2.8.4"
 leakcanaryAndroid = "2.13"
 koin_version = "3.5.0"
 kotlinPlugins = "1.9.10"
+kotlinTestJunit = "1.9.10"
+fragmentKtx = "1.8.2"
+fragmentKtxVersion = "1.8.1"
+navigationCompose = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-fragment-ktx-v181 = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationCompose" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationCompose" }
+androidx-navigation-safeargs = { module = "androidx.navigation:navigation-safe-args-generator", version.ref = "navigationCompose" }
+androidx-navigation-safeargs-plugins = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationCompose" }
+
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -44,6 +57,7 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientSerialization" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorClientCore"}
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-runtime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room-runtime" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-runtime" }
@@ -54,6 +68,8 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin_version" 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin_version" }
 koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin_version" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinTestJunit"}
+
 
 
 

@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.jobstest.R
 
 
@@ -35,6 +37,7 @@ class LoginFirst : Fragment() {
         continueButton = view.findViewById(R.id.email_continue_bt)
         clearImageView = view.findViewById(R.id.email_clear_image)
         errorEmailTextView = view.findViewById(R.id.error_email)
+        continueButton.alpha = 0.5f
 
         emailEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -42,12 +45,10 @@ class LoginFirst : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
                 clearImageView.visibility = if (email.isNotEmpty()) View.VISIBLE else View.GONE
-                continueButton.isEnabled = email.isNotEmpty()
 
-                if (email.isNotEmpty()) {
-                    emailEditText.background = context?.getDrawable(R.drawable.back_grey2_corner8)
-                    errorEmailTextView.visibility = View.GONE
-                }
+                val isEnabled = email.isNotEmpty()
+                continueButton.isEnabled = isEnabled
+                continueButton.alpha = if (isEnabled) 1.0f else 0.5f
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -57,11 +58,14 @@ class LoginFirst : Fragment() {
             emailEditText.text.clear()
         }
 
+
+
+
         continueButton.setOnClickListener {
             val email = emailEditText.text.toString()
             if (isValidEmail(email)) {
                 // Открыть новый фрагмент для ввода пароля
-                // openNextFragment()
+                openNextFragment(email)
             } else {
                 emailEditText.background = context?.getDrawable(R.drawable.error_background)
                 errorEmailTextView.visibility = View.VISIBLE
@@ -73,8 +77,11 @@ class LoginFirst : Fragment() {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun openNextFragment() {
+    private fun openNextFragment(email: String) {
         // Здесь открываем новый фрагмент с вводом пароля
-
+        findNavController().navigate(
+            R.id.action_loginFirstFragment_to_loginSecondFragment,
+            bundleOf("email" to email)
+        )
     }
 }

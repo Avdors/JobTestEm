@@ -31,7 +31,7 @@
     <string name="search_people">Поиск сотрудников</string>
     <string name="search_position">"Должность, ключевые слова"</string>
     <string name="search_work">Поиск работы</string>
-    <string name="send_code">"Отправили код на "</string>
+    <string name="send_code">"Отправили код на %1$s"</string>
 
     <string name="ui_ux">UI/UX дизайнер</string>
     <string name="up_vacancy">"Поднять"</string>

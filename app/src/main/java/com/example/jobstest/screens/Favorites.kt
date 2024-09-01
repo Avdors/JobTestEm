@@ -1,13 +1,13 @@
 package com.example.jobstest.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstest.R
@@ -45,22 +45,20 @@ class Favorites : Fragment() {
         favoritesAdapter = FavoritesAdapter(
             emptyList(),
             onVacancyClick = { vacancy ->
-                val cardVacancyFragment = CardVacancy()
+                // Переход к CardVacancyFragment
                 val bundle = Bundle().apply {
                     putParcelable("vacancy", vacancy)
                 }
-                cardVacancyFragment.arguments = bundle
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, cardVacancyFragment)
-                    .addToBackStack(null)
-                    .commit()
+                findNavController().navigate(
+                    R.id.action_favoritesFragment_to_cardVacancyFragment,
+                    bundle
+                )
             },
             onFavoriteClick = { vacancy ->
                 jobsViewModel.toggleFavorite(vacancy)
             },
             onApplyClick = { vacancy ->
-                val responseDialog = Response()
+                val responseDialog = ResponseDialog()
                 responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
             })
         vacancyRecyclerView.adapter = favoritesAdapter
