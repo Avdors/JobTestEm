@@ -1,6 +1,7 @@
 package com.example.jobstest.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class Favorites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.d("BottomNav", "Favorites start")
         return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
@@ -46,13 +48,15 @@ class Favorites : Fragment() {
             emptyList(),
             onVacancyClick = { vacancy ->
                 // Переход к CardVacancyFragment
-                val bundle = Bundle().apply {
-                    putParcelable("vacancy", vacancy)
+                val fragment = CardVacancy().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("vacancy", vacancy)
+                    }
                 }
-                findNavController().navigate(
-                    R.id.action_favoritesFragment_to_cardVacancyFragment,
-                    bundle
-                )
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit()
             },
             onFavoriteClick = { vacancy ->
                 jobsViewModel.toggleFavorite(vacancy)

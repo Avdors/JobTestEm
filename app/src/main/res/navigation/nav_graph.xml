@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.jobstest.screens.Search"
-        android:label="Search"
+        android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_cardVacancyFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.jobstest.screens.Favorites"
-        android:label="Favorites"
+        android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_favoritesFragment_to_cardVacancyFragment"
@@ -28,13 +28,13 @@
     <fragment
         android:id="@+id/cardVacancyFragment"
         android:name="com.example.jobstest.screens.CardVacancy"
-        android:label="Card Vacancy"
+        android:label="fragment_card_vacancy"
         tools:layout="@layout/fragment_card_vacancy" />
 
     <fragment
         android:id="@+id/loginFirstFragment"
         android:name="com.example.jobstest.screens.LoginFirst"
-        android:label="Login First"
+        android:label="fragment_login_first"
         tools:layout="@layout/fragment_login_first">
 
         <action
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/responseFragment"
         android:name="com.example.jobstest.screens.ResponseDialog"
-        android:label="Response"
+        android:label="fragment_response_dialog"
         tools:layout="@layout/fragment_response_dialog" />
     <fragment
         android:id="@+id/messagesFragment"

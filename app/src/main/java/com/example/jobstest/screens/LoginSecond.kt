@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.jobstest.MainActivity
 import com.example.jobstest.R
 
 
@@ -46,7 +47,14 @@ class LoginSecond : Fragment() {
         updateButtonState()
 
         continueButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginSecondFragment_to_searchFragment)
+            // Выполняем переход на SearchFragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.content, Search())
+                .addToBackStack(null)
+                .commit()
+
+            // Активируем меню после перехода
+            (activity as MainActivity).activateBottomNavigation()
         }
     }
 

@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/searchBottomNav"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/search_icon"
         android:title="@string/search"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/favoritesBottomNav"
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/heart_icon"
         android:title="@string/favorites"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/responsesBottomNav"
+        android:id="@+id/responsesFragment"
         android:title="@string/responses"
         android:icon="@drawable/responses_icon"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/messagesBottomNav"
+        android:id="@+id/messagesFragment"
         android:icon="@drawable/messages_icon"
         android:title="@string/messages"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/profileBottomNav"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/profile_icon"
         android:title="@string/profile"
         app:showAsAction="ifRoom"/>

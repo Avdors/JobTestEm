@@ -74,13 +74,15 @@ class Search : Fragment() {
             emptyList(),
             onVacancyClick = { vacancy ->
                 // Переход к CardVacancyFragment
-                val bundle = Bundle().apply {
-                    putParcelable("vacancy", vacancy)
+                val fragment = CardVacancy().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("vacancy", vacancy)
+                    }
                 }
-                findNavController().navigate(
-                    R.id.action_searchFragment_to_cardVacancyFragment,
-                    bundle
-                )
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit()
             },
             // клик по кнопке избранное
             onFavoriteClick = { vacancy ->

@@ -78,10 +78,16 @@ class LoginFirst : Fragment() {
     }
 
     private fun openNextFragment(email: String) {
-        // Здесь открываем новый фрагмент с вводом пароля
-        findNavController().navigate(
-            R.id.action_loginFirstFragment_to_loginSecondFragment,
-            bundleOf("email" to email)
-        )
+
+        val fragment = LoginSecond().apply {
+            arguments = Bundle().apply {
+                putString("email", email)
+            }
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.content, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
