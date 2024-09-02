@@ -77,6 +77,8 @@ dependencies {
 
     //coroutines
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.test)
+
 
     //test-junit
     implementation(libs.kotlin.test.junit)
@@ -90,6 +92,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
 
+
+    implementation(libs.mockito.core)
 
 
 

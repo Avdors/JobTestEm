@@ -54,6 +54,17 @@ class LoginFirst : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        // Восстановление состояния
+        savedInstanceState?.let {
+            val savedEmail = it.getString("email")
+            emailEditText.setText(savedEmail)
+//            clearImageView.visibility = if (savedEmail?.isNotEmpty() == true) View.VISIBLE else View.GONE
+//
+//            val isEnabled = savedEmail?.isNotEmpty() == true
+//            continueButton.isEnabled = isEnabled
+//            continueButton.alpha = if (isEnabled) 1.0f else 0.5f
+        }
+
         clearImageView.setOnClickListener {
             emailEditText.text.clear()
         }
@@ -71,6 +82,12 @@ class LoginFirst : Fragment() {
                 errorEmailTextView.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Сохранение текущего текста email
+        outState.putString("email", emailEditText.text.toString())
     }
 
     private fun isValidEmail(email: CharSequence): Boolean {
