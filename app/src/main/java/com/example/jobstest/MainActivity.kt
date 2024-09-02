@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ import com.example.jobstest.screens.Responses
 import com.example.jobstest.screens.Search
 import com.example.jobstest.viewmodel.JobsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,9 +38,21 @@ class MainActivity : AppCompatActivity() {
         // Изначально скрываем меню
         setBottomNavigationEnabled(false)
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            // Подписка на изменения количества избранных вакансий
+            jobsViewModel.favoriteVacancies.collect { favorites ->
+                updateFavoritesBadge(favorites.size)
+            }
+            jobsViewModel.fetchData()
+
+
+        }
+
+
+
         // Инициализация загрузки данных
         lifecycleScope.launch {
-            jobsViewModel.fetchData()
+
 
             if (savedInstanceState == null) {
                 // Отобразим первый фрагмент при запуске
@@ -56,14 +70,21 @@ class MainActivity : AppCompatActivity() {
                 return@setOnItemSelectedListener true
             }
 
+
         }
-
-
-
-
 
     }
 
+    private fun updateFavoritesBadge(count: Int) {
+        val badge = binding.bottomNav.getOrCreateBadge(R.id.favoritesFragment)
+        if (count > 0) {
+            badge.isVisible = true
+            badge.number = count
+            badge.backgroundColor = resources.getColor(R.color.red, null)
+        } else {
+            badge.isVisible = false
+        }
+    }
 
     // Метод для управления доступностью пунктов меню
     private fun setBottomNavigationEnabled(isEnabled: Boolean) {
