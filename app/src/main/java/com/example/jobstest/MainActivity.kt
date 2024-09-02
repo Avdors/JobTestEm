@@ -25,9 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-
     private val jobsViewModel: JobsViewModel by viewModel()
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +45,6 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-
-
 
         // Инициализация загрузки данных
         lifecycleScope.launch {

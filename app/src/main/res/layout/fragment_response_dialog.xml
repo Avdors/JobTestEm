@@ -66,6 +66,27 @@
         android:layout_marginTop="@dimen/dp16"
         />
 
+    <EditText
+        android:id="@+id/letter_et"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:drawablePadding="@dimen/dp8"
+        android:fontFamily="@font/sf_pro_regular"
+        android:gravity="center_vertical"
+        android:hint="@string/letter"
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:singleLine="false"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="@color/grey3"
+        android:background="@null"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        android:layout_marginTop="@dimen/dp32" />
+
     <TextView
         android:id="@+id/add_cover_letter_text"
         android:layout_width="0dp"
@@ -76,6 +97,7 @@
         style="@style/SemiboldText"
         android:textColor="@color/green"
         android:textSize="16sp"
+
 
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/line"
@@ -97,7 +119,7 @@
         android:textSize="16sp"
         app:cornerRadius="@dimen/dp8"
         style="@style/RegularText.14size"
-        app:layout_constraintTop_toBottomOf="@+id/add_cover_letter_text"
+        app:layout_constraintTop_toBottomOf="@+id/letter_et"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.collection.emptyLongSet
 import com.example.domain.model.Vacancy
 import com.example.jobstest.R
 import com.example.jobstest.viewmodel.JobsViewModel
@@ -19,6 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CardVacancy : Fragment() {
     private lateinit var vacancy: Vacancy
+    private var isFavoriteVacancy: Boolean = false
     private val jobsViewModel: JobsViewModel by viewModel()
 
     override fun onCreateView(
@@ -50,6 +53,17 @@ class CardVacancy : Fragment() {
         val likeButton: ImageView = view.findViewById(R.id.card_favorit)
         val responseButton: Button = view.findViewById(R.id.respons_button)
 
+
+        //устанавливаю признак избранного
+
+
+        if(vacancy.isFavorite){
+            isFavoriteVacancy = true
+            likeButton.setImageResource(
+                R.drawable.fill_heart_icon
+            )
+        }
+
         // раздел вопросы
         val cardListQuestionLayout = view.findViewById<LinearLayout>(R.id.card_list_question)
         cardListQuestionLayout.removeAllViews()
@@ -80,7 +94,19 @@ class CardVacancy : Fragment() {
                 transformationMethod = null
 
                 setOnClickListener {
-                    // Обработка нажатия на вопрос
+                    val responseDialog = ResponseDialog()
+
+                   // Открытие диалога и передача текста вопроса в поле EditText
+                    responseDialog.dialog?.setOnShowListener {
+                        val addCoverLetterTextView = responseDialog.view?.findViewById<TextView>(R.id.add_cover_letter_text)
+                        val letterEditText = responseDialog.view?.findViewById<EditText>(R.id.letter_et)
+
+                        addCoverLetterTextView?.visibility = View.GONE
+                        letterEditText?.visibility = View.VISIBLE
+                        letterEditText?.setText(question)
+                    }
+
+                    responseDialog.show(parentFragmentManager, "ResponseDialog")
                 }
             }
             // Добавляю кнопку в LinearLayout
@@ -124,7 +150,20 @@ class CardVacancy : Fragment() {
 
         // кнопка "Избранное"
         likeButton.setOnClickListener {
-            jobsViewModel.toggleFavorite(vacancy)
+            if(isFavoriteVacancy){
+                isFavoriteVacancy = false
+                jobsViewModel.toggleFavorite(vacancy)
+                likeButton.setImageResource(
+                    R.drawable.heart_icon
+                )
+            }else {
+                jobsViewModel.toggleFavorite(vacancy)
+                isFavoriteVacancy = true
+                likeButton.setImageResource(
+                    R.drawable.fill_heart_icon
+                )
+            }
+
         }
 
         // Откликнутся

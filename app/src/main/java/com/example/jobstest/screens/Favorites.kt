@@ -50,7 +50,8 @@ class Favorites : Fragment() {
                 // Переход к CardVacancyFragment
                 val fragment = CardVacancy().apply {
                     arguments = Bundle().apply {
-                        putParcelable("vacancy", vacancy)
+                        val vacancyCopy = vacancy.copy(isFavorite = true)
+                        putParcelable("vacancy", vacancyCopy)
                     }
                 }
                 parentFragmentManager.beginTransaction()
