@@ -43,6 +43,14 @@ class LoginSecond : Fragment() {
         et4 = view.findViewById(R.id.et4)
         continueButton = view.findViewById(R.id.continue_bt)
 
+        // Восстанавливаю состояние полей, если есть сохраненное состояние
+        savedInstanceState?.let {
+            et1.setText(it.getString("et1_text"))
+            et2.setText(it.getString("et2_text"))
+            et3.setText(it.getString("et3_text"))
+            et4.setText(it.getString("et4_text"))
+        }
+
         setupEditTexts()
         updateButtonState()
 
@@ -56,6 +64,15 @@ class LoginSecond : Fragment() {
             // Активируем меню после перехода
             (activity as MainActivity).activateBottomNavigation()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Сохраняем текущее состояние полей EditText
+        outState.putString("et1_text", et1.text.toString())
+        outState.putString("et2_text", et2.text.toString())
+        outState.putString("et3_text", et3.text.toString())
+        outState.putString("et4_text", et4.text.toString())
     }
 
     private fun setupEditTexts() {
