@@ -2,7 +2,7 @@
 <resources>
 
     <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="android:paddingBottom">0dp</item> <!-- Минимальные отступы снизу -->
+        <item name="android:paddingBottom">0dp</item>
         <item name="android:paddingTop">0dp</item>
     </style>
 
@@ -47,12 +47,6 @@
         <item name="android:textSize">@dimen/sp20</item>
     </style>
 
-    <style name="bottom_navigation_view" parent="RegularText.12size">
-        <item name="buttonStyle" type="style">@style/bottom_navigation_view</item>
-        <item name="itemTextColor">@color/color_tab</item>
-        <item name="itemIconTint">@color/color_tab</item>
-        <item name="fontFamily">@font/sf_pro_regular</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
+
 
 </resources>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstest.R
@@ -29,6 +30,7 @@ class Favorites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.d("BottomNav", "Favorites start")
         return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
@@ -45,14 +47,15 @@ class Favorites : Fragment() {
         favoritesAdapter = FavoritesAdapter(
             emptyList(),
             onVacancyClick = { vacancy ->
-                val cardVacancyFragment = CardVacancy()
-                val bundle = Bundle().apply {
-                    putParcelable("vacancy", vacancy)
+                // Переход к CardVacancyFragment
+                val fragment = CardVacancy().apply {
+                    arguments = Bundle().apply {
+                        val vacancyCopy = vacancy.copy(isFavorite = true)
+                        putParcelable("vacancy", vacancyCopy)
+                    }
                 }
-                cardVacancyFragment.arguments = bundle
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, cardVacancyFragment)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment)
                     .addToBackStack(null)
                     .commit()
             },
@@ -60,7 +63,7 @@ class Favorites : Fragment() {
                 jobsViewModel.toggleFavorite(vacancy)
             },
             onApplyClick = { vacancy ->
-                val responseDialog = Response()
+                val responseDialog = ResponseDialog()
                 responseDialog.show(requireActivity().supportFragmentManager, "ResponseDialog")
             })
         vacancyRecyclerView.adapter = favoritesAdapter

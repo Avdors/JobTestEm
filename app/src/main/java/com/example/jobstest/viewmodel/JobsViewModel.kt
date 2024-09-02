@@ -6,6 +6,7 @@ import com.example.domain.model.Offer
 import com.example.domain.model.Vacancy
 import com.example.domain.repository.ApiRepository
 import com.example.domain.repository.DbRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,15 +28,17 @@ class JobsViewModel(
     val favoriteVacancies: StateFlow<List<Vacancy>> = _favoriteVacancies
 
     init {
-
-        viewModelScope.launch {
-            fetchData()
+        viewModelScope.launch(Dispatchers.IO) {
             fetchFavoriteVacancies()
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchData()
         }
     }
 
+
     private fun fetchFavoriteVacancies() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             dbRepository.getItemList().collect { favorites ->
                 _favoriteVacancies.value = favorites
             }
@@ -59,7 +62,7 @@ class JobsViewModel(
         }
         _vacancies.value = updatedVacancies
         // Здесь добавлю сохранение и удаление в БД
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (vacancy.isFavorite) {
                 dbRepository.delete(vacancy)
             } else {

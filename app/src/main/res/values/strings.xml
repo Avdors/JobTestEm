@@ -16,6 +16,8 @@
     <string name="i_find_people">Я ищу сотрудников</string>
     <string name="job_title_text">UI/UX дизайнер</string>
     <string name="login_lk">Вход в личный кабинет</string>
+    <string name="login_password">Войти с паролем</string>
+    <string name="letter">Ваше сопроводительное письмо</string>
 
     <string name="messages">Сообщения</string>
     <string name="more">Еще</string>
@@ -30,7 +32,7 @@
     <string name="search_people">Поиск сотрудников</string>
     <string name="search_position">"Должность, ключевые слова"</string>
     <string name="search_work">Поиск работы</string>
-    <string name="send_code">"Отправили код на "</string>
+    <string name="send_code">"Отправили код на %1$s"</string>
 
     <string name="ui_ux">UI/UX дизайнер</string>
     <string name="up_vacancy">"Поднять"</string>
@@ -40,7 +42,8 @@
 
     <string name="your_email">"*** ваш e-mail ***"</string>
     <string name="your_tasks">Ваши задачи</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
