@@ -23,6 +23,7 @@ Hello, I'm Dmitry!
 * Для тестов junit и mockito
 
   проект еще буду дорабатывать, не все сделал, так как ограничен по времени
+  P/S navigation не захотел корректно работать с меню поэтому пока оставил в ручном режиме.
 
   
 <img src="https://github.com/user-attachments/assets/bf03bf43-d179-4a82-8ba7-44c00390d213" alt="image1" width="200"/> 
