@@ -36,14 +36,16 @@ class MainActivity : AppCompatActivity() {
         // Изначально скрываем меню
         setBottomNavigationEnabled(false)
 
+
         lifecycleScope.launch(Dispatchers.IO) {
+            jobsViewModel.fetchData()
+        }
+        lifecycleScope.launch(Dispatchers.IO) {
+
             // Подписка на изменения количества избранных вакансий
             jobsViewModel.favoriteVacancies.collect { favorites ->
                 updateFavoritesBadge(favorites.size)
             }
-            jobsViewModel.fetchData()
-
-
         }
 
         // Инициализация загрузки данных
