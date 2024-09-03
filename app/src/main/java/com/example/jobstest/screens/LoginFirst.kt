@@ -77,6 +77,8 @@ class LoginFirst : Fragment() {
             if (isValidEmail(email)) {
                 // Открыть новый фрагмент для ввода пароля
                 openNextFragment(email)
+
+
             } else {
                 emailEditText.background = context?.getDrawable(R.drawable.error_background)
                 errorEmailTextView.visibility = View.VISIBLE
@@ -84,10 +86,14 @@ class LoginFirst : Fragment() {
         }
     }
 
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Сохранение текущего текста email
-        outState.putString("email", emailEditText.text.toString())
+        if (::emailEditText.isInitialized) {
+            outState.putString("email", emailEditText.text.toString())
+        }
     }
 
     private fun isValidEmail(email: CharSequence): Boolean {

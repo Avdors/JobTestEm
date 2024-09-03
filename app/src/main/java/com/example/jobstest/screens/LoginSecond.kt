@@ -66,13 +66,17 @@ class LoginSecond : Fragment() {
         }
     }
 
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Сохраняем текущее состояние полей EditText
-        outState.putString("et1_text", et1.text.toString())
-        outState.putString("et2_text", et2.text.toString())
-        outState.putString("et3_text", et3.text.toString())
-        outState.putString("et4_text", et4.text.toString())
+        if (::et1.isInitialized || ::et2.isInitialized || ::et3.isInitialized || ::et4.isInitialized ){
+            outState.putString("et1_text", et1.text.toString())
+            outState.putString("et2_text", et2.text.toString())
+            outState.putString("et3_text", et3.text.toString())
+            outState.putString("et4_text", et4.text.toString())
+        }
+
     }
 
     private fun setupEditTexts() {
