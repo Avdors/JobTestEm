@@ -27,50 +27,55 @@ class MainActivity : AppCompatActivity() {
 
     private val jobsViewModel: JobsViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
+    private var isMenuEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Изначально скрываем меню
-        setBottomNavigationEnabled(false)
+        if (savedInstanceState != null) {
+            isMenuEnabled = savedInstanceState.getBoolean("MENU_ENABLED", false)
+            setBottomNavigationEnabled(isMenuEnabled)
+        } else {
+            setBottomNavigationEnabled(false)
+        }
 
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.searchFragment -> loadFragment(Search())
+                R.id.favoritesFragment -> loadFragment(Favorites())
+                R.id.responsesFragment -> loadFragment(Responses())
+                R.id.messagesFragment -> loadFragment(Messages())
+                R.id.profileFragment -> loadFragment(Profile())
+            }
+            true
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             jobsViewModel.fetchData()
         }
-        lifecycleScope.launch(Dispatchers.IO) {
 
-            // Подписка на изменения количества избранных вакансий
+        lifecycleScope.launch(Dispatchers.IO) {
             jobsViewModel.favoriteVacancies.collect { favorites ->
                 updateFavoritesBadge(favorites.size)
             }
         }
 
-        // Инициализация загрузки данных
-        lifecycleScope.launch {
-
-
-            if (savedInstanceState == null) {
-                // Отобразим первый фрагмент при запуске
-                loadFragment(LoginFirst())
-            }
-            binding.bottomNav.setOnItemSelectedListener { item ->
-
-                when(item.itemId){
-                    R.id.searchFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Search()).commit()
-                    R.id.favoritesFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Favorites()).commit()
-                    R.id.responsesFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Responses()).commit()
-                    R.id.messagesFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Messages()).commit()
-                    R.id.profileFragment -> supportFragmentManager.beginTransaction().replace(R.id.content, Profile()).commit()
-                }
-                return@setOnItemSelectedListener true
-            }
-
-
+        if (savedInstanceState == null) {
+            loadFragment(LoginFirst())
         }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("MENU_ENABLED", isMenuEnabled)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isMenuEnabled = savedInstanceState.getBoolean("MENU_ENABLED", false)
+        setBottomNavigationEnabled(isMenuEnabled)
     }
 
     private fun updateFavoritesBadge(count: Int) {
@@ -78,28 +83,26 @@ class MainActivity : AppCompatActivity() {
         if (count > 0) {
             badge.isVisible = true
             badge.number = count
-            badge.backgroundColor = resources.getColor(R.color.red, null)
+            badge.backgroundColor = resources.getColor(R.color.red, null) // Устанавливаем красный фон
         } else {
             badge.isVisible = false
         }
     }
 
-    // Метод для управления доступностью пунктов меню
     private fun setBottomNavigationEnabled(isEnabled: Boolean) {
         for (i in 0 until binding.bottomNav.menu.size()) {
             binding.bottomNav.menu.getItem(i).isEnabled = isEnabled
         }
     }
 
-    // Метод для загрузки фрагментов
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content, fragment)
             .commit()
     }
 
-    // Метод для активации меню после перехода на SearchFragment
     fun activateBottomNavigation() {
+        isMenuEnabled = true
         setBottomNavigationEnabled(true)
     }
-    }
+}
