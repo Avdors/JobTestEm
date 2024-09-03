@@ -93,8 +93,27 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
 
-    implementation(libs.mockito.core)
+    // Mockito
+    // Для JVM тестов
+//    testImplementation(libs.mockito.inline)
+//    androidTestImplementation(libs.mockito.android)
+//    androidTestImplementation(libs.mockito.core)
+//    testImplementation(libs.mockito.junit.jupiter)
+//
+//    testImplementation(libs.mockk)
+
+    // JUnit 5 dependencies
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+
+    // Mockito dependencies for JUnit 5
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.junit.jupiter)
 
 
 
+
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
